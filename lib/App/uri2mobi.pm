@@ -13,7 +13,7 @@ __PACKAGE__->run unless caller();
 
 =head1 NAME
 
-App::uri2mobi - The great new App::uri2mobi!
+App::uri2mobi - Scrape a web page and turn it in a MOBI ebook
 
 =head1 VERSION
 
@@ -26,14 +26,15 @@ our $VERSION = '0.01';
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use App::uri2mobi;
 
-    my $foo = App::uri2mobi->new();
-    ...
+    my $uri2mobi = App::uri2mobi->new(
+      uri => $uri,
+      xpath => $xpath,
+      output_file => $output_file,
+      clean_tmp => 1,
+    );
+    $uri2mobi->run();
 
 =head1 EXPORT
 
