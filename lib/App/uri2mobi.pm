@@ -3,6 +3,10 @@ package App::uri2mobi;
 use warnings;
 use strict;
 
+use HTML::Excerpt::XPath;
+use HTML::Image::Save;
+use Mobigen::Command;
+
 =head1 NAME
 
 App::uri2mobi - The great new App::uri2mobi!
