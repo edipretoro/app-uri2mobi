@@ -100,7 +100,9 @@ sub convert {
         xpath => $self->xpath,
     );
     my $html = $result->[0]->as_HTML;
-    my $img_saver = HTML::Image::Save->new();
+    my $img_saver = HTML::Image::Save->new(
+        base_url => $self->uri,
+    );
     $img_saver->html( $html );
 #    $img_saver->output_html( 'uri2mobi.html' );
     $img_saver->output_dir( './tmp_uri2mobi' );
