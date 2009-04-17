@@ -9,10 +9,11 @@ my $builder = Module::Build->new(
     dist_version_from   => 'lib/App/uri2mobi.pm',
     build_requires => {
         'Test::More' => 0,
-        'HTML::Excerpt::XPath' => 0,
+        'HTML::Excerpt::FromXPath' => 0,
         'Mobigen::Command' => 0,
         'HTML::Image::Save' => 0,
         'Getopt::Long' => 0,
+        'File::Slurp' => 0,
     },
     add_to_cleanup      => [ 'App-uri2mobi-*' ],
     create_makefile_pl => 'traditional',

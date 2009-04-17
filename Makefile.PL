@@ -13,10 +13,11 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
-        'HTML::Excerpt::XPath' => 0,
+        'HTML::Excerpt::FromXPath' => 0,
         'Mobigen::Command' => 0,
         'HTML::Image::Save' => 0,
         'Getopt::Long' => 0,
+        'File::Slurp' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'App-uri2mobi-*' },
