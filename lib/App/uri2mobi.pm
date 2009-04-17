@@ -79,7 +79,7 @@ sub run {
     my $uri2mobi = App::uri2mobi->new();
     $uri2mobi->uri( $config->{uri} );
     $uri2mobi->xpath( $config->{xpath} );
-    $uri2mobi->output( $config->{output} );
+    $uri2mobi->output_file( $config->{output} );
     $uri2mobi->clean( $config->{clean} );
                     
     $uri2mobi->convert();
