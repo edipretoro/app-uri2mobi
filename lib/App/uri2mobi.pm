@@ -7,6 +7,8 @@ use HTML::Excerpt::XPath;
 use HTML::Image::Save;
 use Mobigen::Command;
 
+use Getopt::Long;
+
 =head1 NAME
 
 App::uri2mobi - The great new App::uri2mobi!
