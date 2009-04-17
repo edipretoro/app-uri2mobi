@@ -42,18 +42,18 @@ if you don't export anything, such as for a purely object-oriented module.
 
 =head1 FUNCTIONS
 
-=head2 function1
+=head2 new
 
 =cut
 
-sub function1 {
+sub new {
 }
 
-=head2 function2
+=head2 run
 
 =cut
 
-sub function2 {
+sub run {
 }
 
 =head1 AUTHOR
