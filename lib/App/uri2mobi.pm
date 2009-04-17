@@ -9,6 +9,8 @@ use Mobigen::Command;
 
 use Getopt::Long;
 
+__PACKAGE__->run unless caller();
+
 =head1 NAME
 
 App::uri2mobi - The great new App::uri2mobi!
