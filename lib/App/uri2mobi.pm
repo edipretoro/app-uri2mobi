@@ -3,11 +3,19 @@ package App::uri2mobi;
 use warnings;
 use strict;
 
-use HTML::Excerpt::XPath;
+use base 'Class::Accessor::Fast';
+__PACKAGE__->mk_accessors( qw( uri xpath output_file clean ) );
+
+use HTML::Excerpt::FromXPath;
 use HTML::Image::Save;
 use Mobigen::Command;
 
 use Getopt::Long;
+use File::Slurp;
+use File::Path;
+
+use Carp;
+
 
 __PACKAGE__->run unless caller();
 
@@ -34,7 +42,7 @@ our $VERSION = '0.01';
       output_file => $output_file,
       clean_tmp => 1,
     );
-    $uri2mobi->run();
+    $uri2mobi->convert();
 
 =head1 EXPORT
 
@@ -48,6 +56,16 @@ if you don't export anything, such as for a purely object-oriented module.
 =cut
 
 sub new {
+    my ($class, %args) = @_;
+    
+    my $self = {
+        uri => $args{uri},
+        xpath => $args{xpath},
+        output_file => $args{output_file},
+        clean => $args{clean},
+    };
+    
+    return bless($self, $class);
 }
 
 =head2 run
@@ -55,6 +73,51 @@ sub new {
 =cut
 
 sub run {
+    my $config = { clean => 1 };
+    GetOptions( $config, 'uri=s', 'xpath=s', 'output=s', 'clean' );
+        
+    my $uri2mobi = App::uri2mobi->new();
+    $uri2mobi->uri( $config->{uri} );
+    $uri2mobi->xpath( $config->{xpath} );
+    $uri2mobi->output( $config->{output} );
+    $uri2mobi->clean( $config->{clean} );
+                    
+    $uri2mobi->convert();
+}
+
+=head2 convert
+
+=cut
+
+sub convert {
+    my $self = shift;
+    
+    croak( "No URI" ) unless $self->uri;
+
+    my $ua = HTML::Excerpt::FromXPath->new();
+    my $result = $ua->scrape(
+        url => $self->uri,
+        xpath => $self->xpath,
+    );
+    my $html = $result->[0]->as_HTML;
+    my $img_saver = HTML::Image::Save->new();
+    $img_saver->html( $html );
+#    $img_saver->output_html( 'uri2mobi.html' );
+    $img_saver->output_dir( './tmp_uri2mobi' );
+    $img_saver->img_dir( 'images' );
+    $html = $img_saver->save();
+
+    write_file( 'uri2mobi.html', $html );
+    
+    my $mobigen = Mobigen::Command->new();
+    $mobigen->input_file( 'uri2mobi.html' );
+    $mobigen->output_file( $self->output_file );
+    $mobigen->execute();
+
+    if ($self->clean) {
+        rmtree( './tmp_uri2mobi' );
+        rmtree( 'uri2mobi.html' );
+    }
 }
 
 =head1 AUTHOR
