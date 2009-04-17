@@ -16,6 +16,7 @@ WriteMakefile(
         'HTML::Excerpt::XPath' => 0,
         'Mobigen::Command' => 0,
         'HTML::Image::Save' => 0,
+        'Getopt::Long' => 0,
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'App-uri2mobi-*' },

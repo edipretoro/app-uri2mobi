@@ -12,6 +12,7 @@ my $builder = Module::Build->new(
         'HTML::Excerpt::XPath' => 0,
         'Mobigen::Command' => 0,
         'HTML::Image::Save' => 0,
+        'Getopt::Long' => 0,
     },
     add_to_cleanup      => [ 'App-uri2mobi-*' ],
     create_makefile_pl => 'traditional',
