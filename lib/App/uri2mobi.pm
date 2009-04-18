@@ -4,7 +4,7 @@ use warnings;
 use strict;
 
 use base 'Class::Accessor::Fast';
-__PACKAGE__->mk_accessors( qw( uri xpath output_file clean ) );
+__PACKAGE__->mk_accessors( qw( uri xpath output_file clean img_callback ) );
 
 use HTML::Excerpt::FromXPath;
 use HTML::Image::Save;
@@ -62,6 +62,7 @@ sub new {
         xpath => $args{xpath},
         output_file => $args{output_file},
         clean => $args{clean},
+        img_callback => $args{img_callback} || undef,
     };
     
     return bless($self, $class);
@@ -102,6 +103,7 @@ sub convert {
     my $img_saver = HTML::Image::Save->new(
         base_url => $self->uri,
     );
+    $img_saver->callback( $self->img_callback );
     $img_saver->html( $html );
     $img_saver->output_html( 'uri2mobi.html' );
     $img_saver->output_dir( './tmp_uri2mobi' );
