@@ -11,7 +11,6 @@ use HTML::Image::Save;
 use Mobigen::Command;
 
 use Getopt::Long;
-use File::Slurp;
 use File::Path;
 
 use Carp;
@@ -104,13 +103,11 @@ sub convert {
         base_url => $self->uri,
     );
     $img_saver->html( $html );
-#    $img_saver->output_html( 'uri2mobi.html' );
+    $img_saver->output_html( 'uri2mobi.html' );
     $img_saver->output_dir( './tmp_uri2mobi' );
     $img_saver->img_dir( 'images' );
     $html = $img_saver->save();
 
-    write_file( 'uri2mobi.html', $html );
-    
     my $mobigen = Mobigen::Command->new();
     $mobigen->input_file( 'uri2mobi.html' );
     $mobigen->output_file( $self->output_file );
