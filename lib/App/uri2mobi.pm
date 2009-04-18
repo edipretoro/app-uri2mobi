@@ -73,7 +73,7 @@ sub new {
 
 sub run {
     my $config = { clean => 1 };
-    GetOptions( $config, 'uri=s', 'xpath=s', 'output=s', 'clean' );
+    GetOptions( $config, 'uri=s', 'xpath=s', 'output=s', 'clean=i' );
         
     my $uri2mobi = App::uri2mobi->new();
     $uri2mobi->uri( $config->{uri} );
